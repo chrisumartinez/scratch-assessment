@@ -1,17 +1,16 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const fs = require("fs");
 const axios = require("axios");
-const res = require("express/lib/response");
 const filters = require("./utils/filter.js");
-const { all } = require("express/lib/application");
 
+//Harcoded URLS to do our requests:
 const medical_url =
 	"https://storage.googleapis.com/scratchpay-code-challenge/dental-clinics.json";
 const vet_url =
 	"https://storage.googleapis.com/scratchpay-code-challenge/vet-clinics.json";
 
+// get requests for axios.all();
 const getMedicalClinic = () => {
 	return axios.get(medical_url);
 };
@@ -20,6 +19,27 @@ const getVetClinic = () => {
 	return axios.get(vet_url);
 };
 
+/*
+Check if the arguments passed are correct and valid for use.
+@return => if the arguments are valid.
+@params => process.argv[2], after slicing node index.js.
+*/
+
+const checkArgs = (args) => {
+	index = 0;
+	while (index < args.length) {
+		if (!args[index].includes("filter")) {
+			break;
+		}
+	}
+	if (index !== args.slice(index).length) {
+		return false;
+	} else {
+		return true;
+	}
+};
+
+//return filtered clinics depending on filters and their respective paramters.
 const returnFilteredClinics = (json, args) => {
 	if (args[0] === "filterByName") {
 		return filters.filterByName(json, args[1]);
