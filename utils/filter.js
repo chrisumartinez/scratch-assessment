@@ -1,5 +1,4 @@
-const data = require("./dental-clinics.json");
-const states = require("./states.js");
+const states = require("../data/states.js");
 
 const filterByName = (json, name) => {
 	return json.filter((item) => {

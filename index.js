@@ -4,7 +4,7 @@ const port = 3000;
 const fs = require("fs");
 const axios = require("axios");
 const res = require("express/lib/response");
-const filters = require("./filter.js");
+const filters = require("./utils/filter.js");
 const { all } = require("express/lib/application");
 
 const medical_url =
